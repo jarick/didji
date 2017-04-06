@@ -1,0 +1,16 @@
+{
+  "esversion": 6,
+  "undef": true,
+  "unused": "vars",
+  "strict": false,
+  "asi": true,
+  "expr": true,
+  "globalstrict": true,
+  "globals": {
+    "console": false,
+    "window": false,
+    "require": false,
+    "module": false,
+    "exports": false
+  }
+}
