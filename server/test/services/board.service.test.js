@@ -44,4 +44,10 @@ describe('boards service', () => {
       (err) => done(err)
     );
   });
+  it('#complete', (done) => {
+    srv.boards.complete('session-1').then(
+      () => done(),
+      (err) => done(err)
+    );
+  })
 });

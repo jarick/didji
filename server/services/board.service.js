@@ -39,7 +39,7 @@ export default class BoardService implements Impl {
     const save: Array<BoardEntity> = list.map(
       (item: BoardEntity) => item.session = id
     );
-    this.model.save(save);
+    await this.model.save(save);
   }
 
 }
