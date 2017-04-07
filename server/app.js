@@ -1,5 +1,5 @@
 
-import services from './services/index.service';
+import services from './services/context.service';
 import config from './config/local';
 import routes from './routes/index.route';
 
@@ -9,15 +9,21 @@ const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const app = express();
-const srv = services(config);
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
+app.use((req, res, next) => {
+  services(config)
+    .then(context => {
+      req.context = context;
+      next();
+    });
+});
 
-routes(srv);
+app.use(routes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -27,8 +33,9 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  console.error(err);
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = err;
   res.status(err.status || 500);
   res.json({status: 'error'});
 });
