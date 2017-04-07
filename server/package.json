@@ -9,11 +9,8 @@
   "dependencies": {
     "body-parser": "~1.16.0",
     "debug": "~2.6.0",
-    "ejs": "~2.5.5",
     "express": "~4.14.1",
     "express-validator": "^3.1.2",
-    "morgan": "~1.7.0",
-    "npm": "^4.4.4",
     "serve-favicon": "~2.3.2",
     "uniqid": "^4.1.1"
   },
@@ -27,6 +24,7 @@
     "eslint": "^3.19.0",
     "eslint-plugin-flowtype": "^2.30.4",
     "eslint-plugin-import": "^2.2.0",
+    "flow-bin": "^0.43.1",
     "mocha": "^3.2.0"
   }
 }
