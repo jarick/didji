@@ -1,10 +1,10 @@
 
 const express = require('express');
-
+const util = require('util');
 const router = express.Router();
 
 router.get('/:session', (req, res) => {
-  req.checkParams('session', 'Invalid session').isAlpha();
+  req.checkParams('session', 'Invalid session').notEmpty();
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) {
       res.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
@@ -19,7 +19,10 @@ router.get('/:session', (req, res) => {
 
 router.post('/', (req, res) => {
   req.context.sessions.create().then(
-    (data) => res.json({status: 'ok'})
+    (id) => res.json({
+      status: 'ok',
+      id
+    })
   );
 });
 

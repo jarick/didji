@@ -22,12 +22,12 @@ export default class SessionService implements Impl {
     return this.model;
   }
 
-  async create(): Promise<void> {
-    const data: SessionEntity = {
-      id: uniqid(),
-      complete: false
-    };
+  async create(): Promise<string> {
+    const id = uniqid();
+    const complete = false;
+    const data: SessionEntity = {id, complete};
     await this.model.save(data);
+    return id;
   }
 
   async get(id: string): Promise<Session> {

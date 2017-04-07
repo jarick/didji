@@ -11,7 +11,7 @@ export interface BoardService {
 }
 
 export interface SessionService {
-  create: () => Promise<void>,
+  create: () => Promise<string>,
   get: (id: string) => Promise<Session>,
   complete: (id: string) => Promise<void>
 }

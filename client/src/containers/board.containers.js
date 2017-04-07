@@ -36,14 +36,15 @@ export default connect(
     },
     onSaveClick: (points) => {
       dispatch(sendSave());
-      const session = 'test';
-      fetch('/api/v1/session', {method: 'POST'})
+      let session = null;
+      fetch('/api/v1/sessions', {method: 'POST'})
         .then(body => body.json())
         .then((data) => new Promise((resolve, reject) => {
+          session = data.id;
           each(
             points,
             (point, cb) => {
-              fetch(`/api/v1/point`, {
+              fetch(`/api/v1/points`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
@@ -66,7 +67,7 @@ export default connect(
             }
           );
         }))
-        .then(() => fetch(`/api/v1/boards/complete/${session}`))
+        .then(() => fetch(`/api/v1/boards/complete/${session}`, {method: 'POST'}))
         .then(() => dispatch(successSave()))
         .catch(() => dispatch(failedSave()))
     },

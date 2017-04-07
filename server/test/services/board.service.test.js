@@ -2,17 +2,17 @@
 const chai = require('chai');
 const should = chai.should();
 const before = require('./before');
-let srv = {};
+let context = {};
 
 describe('boards service', () => {
   beforeEach((done) => {
     before((err, data) => {
-      srv = data;
+      context = data;
       done(err);
     });
   });
   it('#get', (done) => {
-    srv.boards.get().then(
+    context.boards.get().then(
       (board) => {
         const mustBy = {
           id: 'board-1',
@@ -45,7 +45,7 @@ describe('boards service', () => {
     );
   });
   it('#complete', (done) => {
-    srv.boards.complete('session-1').then(
+    context.boards.complete('session-1').then(
       () => done(),
       (err) => done(err)
     );
