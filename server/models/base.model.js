@@ -37,7 +37,11 @@ export default class XmlModel<Entity> implements Model {
 
   save(data: Entity) {
     return new Promise((resolve, reject) => {
-      this.data = this.data.concat([data]);
+      let filter: Array<Entity> = this.data.slice();
+      if (data.id) {
+        filter = filter.filter(item => item.id !== data.id);
+      }
+      this.data = filter.concat([data]);
       fs.writeFile(this.jsonFile, JSON.stringify(this.data), {encoding: 'utf-8'}, (err) => {
         if (err) {
           reject(err);
